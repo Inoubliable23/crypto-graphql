@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled, { ThemeProvider } from 'styled-components';
+import RatesCard from './components/rates-card/rates-card';
+import { GlobalStyle } from './global.styles';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const theme = {
+	bgMain: '#edf1f8',
+	bgCard: '#fff'
+}
+
+const Container = styled.div`
+	padding: 50px;
+`
+
+const App = () => {
+	return (
+		<ThemeProvider theme={theme}>
+			<GlobalStyle />
+			<Container>
+				<RatesCard />
+			</Container>
+		</ThemeProvider>
+	);
 }
 
 export default App;
