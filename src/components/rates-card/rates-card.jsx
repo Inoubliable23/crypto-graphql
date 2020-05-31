@@ -18,12 +18,34 @@ const CryptocurrenciesList = styled.div`
 
 const Row = styled.div`
 	display: grid;
-	grid-template-columns: 1fr 2fr 2fr 2fr;
+	grid-template-columns: 50px 1fr 2fr 2fr 2fr;
 	padding: 10px 0;
 `
 
+const Icon = styled.div`
+	display: flex;
+	align-items: center;
+`
+
 const Symbol = styled.div`
+	display: flex;
+	align-items: center;
 	font-weight: 600;
+`
+
+const Name = styled.div`
+	display: flex;
+	align-items: center;
+`
+
+const Price = styled.div`
+	display: flex;
+	align-items: center;
+`
+
+const Change = styled.div`
+	display: flex;
+	align-items: center;
 `
 
 const cryptocurrencies = [
@@ -68,7 +90,14 @@ const cryptocurrencies = [
 	}
 ];
 
+const cryptoSVGs = require.context('../../assets/icons/cryptocurrencies', true);
+
 const RatesCard = () => {
+
+	const getCryptoSvg = name => {
+		return cryptoSVGs(`./${name.toLowerCase()}.svg`);
+	}
+
 	return (
 		<Container>
 			<Title>Rates</Title>
@@ -76,10 +105,13 @@ const RatesCard = () => {
 				{
 					cryptocurrencies.map(cryptocurrency => (
 						<Row key={cryptocurrency.id}>
+							<Icon>
+								<img src={getCryptoSvg(cryptocurrency.symbol)} alt='' />
+							</Icon>
 							<Symbol>{cryptocurrency.symbol}</Symbol>
-							<div>{cryptocurrency.name}</div>
-							<div>$ {cryptocurrency.priceUsd.toFixed(2)}</div>
-							<div>{cryptocurrency.changePercent24Hr.toFixed(2)}%</div>
+							<Name>{cryptocurrency.name}</Name>
+							<Price>$ {cryptocurrency.priceUsd.toFixed(2)}</Price>
+							<Change>{cryptocurrency.changePercent24Hr.toFixed(2)}%</Change>
 						</Row>
 					))
 				}

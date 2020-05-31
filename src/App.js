@@ -5,7 +5,9 @@ import { GlobalStyle } from './global.styles';
 
 const theme = {
 	bgMain: '#edf1f8',
-	bgCard: '#fff'
+	bgCard: '#fff',
+	textPrimary: '#111',
+	textSecondary: '#B0B2C1'
 }
 
 const Container = styled.div`
