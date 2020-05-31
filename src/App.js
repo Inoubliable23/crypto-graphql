@@ -4,7 +4,7 @@ import RatesCard from './components/rates-card/rates-card';
 import { GlobalStyle } from './global.styles';
 
 const theme = {
-	bgMain: '#edf1f8',
+	bgMain: '#e3e8f3',
 	bgCard: '#fff',
 	textPrimary: '#111',
 	textSecondary: '#B0B2C1'
