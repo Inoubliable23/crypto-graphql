@@ -14,7 +14,7 @@ export const GlobalStyle = createGlobalStyle`
 
 	a {
 		text-decoration: none;
-		color: #fff;
+		color: ${props => props.theme.textPrimary};
 		display: block;
 	}
 

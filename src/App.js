@@ -1,7 +1,8 @@
 import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
-import RatesCard from './components/rates-card/rates-card';
+import { ThemeProvider } from 'styled-components';
+import { Switch, Route } from 'react-router-dom';
 import { GlobalStyle } from './global.styles';
+import HomePage from './pages/home/home';
 
 const theme = {
 	bgMain: '#e3e8f3',
@@ -10,17 +11,17 @@ const theme = {
 	textSecondary: '#B0B2C1'
 }
 
-const Container = styled.div`
-	padding: 50px;
-`
-
 const App = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<GlobalStyle />
-			<Container>
-				<RatesCard />
-			</Container>
+			<div>
+				<Switch>
+					<Route exact path='/' component={HomePage} />
+					<Route exact path='/home' component={HomePage} />
+					<Route exact path='/home/:cryptocurrencyId' component={HomePage} />
+				</Switch>
+			</div>
 		</ThemeProvider>
 	);
 }
