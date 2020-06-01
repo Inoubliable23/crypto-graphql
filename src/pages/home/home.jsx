@@ -14,7 +14,7 @@ const Container = styled.div`
 const HomePage = () => {
 	return (
 		<Container>
-			<ChartCard cryptocurrencyId={'bitcoin'} />
+			<ChartCard />
 			<RatesCard />
 		</Container>
 	);

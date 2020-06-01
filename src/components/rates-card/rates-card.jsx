@@ -100,7 +100,7 @@ const RatesCard = () => {
 				{
 					data && data.cryptocurrencies &&
 					data.cryptocurrencies.map(cryptocurrency => (
-						<Row key={cryptocurrency.id} to={`/home/${cryptocurrency.id}`}>
+						<Row key={cryptocurrency.id} to={`/${cryptocurrency.id}`}>
 							<Icon>
 								<img src={getCryptoSvg(cryptocurrency.symbol)} alt={cryptocurrency.symbol} />
 							</Icon>

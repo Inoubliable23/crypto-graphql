@@ -8,7 +8,8 @@ const theme = {
 	bgMain: '#e3e8f3',
 	bgCard: '#fff',
 	textPrimary: '#111',
-	textSecondary: '#B0B2C1'
+	textSecondary: '#B0B2C1',
+	textHighlighted: '#D96E3C'
 }
 
 const App = () => {
@@ -17,9 +18,7 @@ const App = () => {
 			<GlobalStyle />
 			<div>
 				<Switch>
-					<Route exact path='/' component={HomePage} />
-					<Route exact path='/home' component={HomePage} />
-					<Route exact path='/home/:cryptocurrencyId' component={HomePage} />
+					<Route exact path='/:cryptocurrencyId?' component={HomePage} />
 				</Switch>
 			</div>
 		</ThemeProvider>

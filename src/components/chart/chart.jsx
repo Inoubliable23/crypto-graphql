@@ -2,15 +2,44 @@ import React from 'react';
 import { LineChart, XAxis, YAxis, CartesianGrid, Tooltip, Line, ResponsiveContainer } from 'recharts';
 import dayjs from 'dayjs';
 
-const formatDateAxis = time => {
-	return dayjs(parseInt(time)).format('MMM YYYY');
-}
+const Chart = ({ data, timeline }) => {
 
-const formatDateTooltip = time => {
-	return dayjs(parseInt(time)).format('D. MMM YYYY');
-}
+	const formatDateAxis = time => {
+		switch (timeline) {
+			case '1d':
+				return dayjs(parseInt(time)).format('HH:mm');
+			case '5d':
+				return dayjs(parseInt(time)).format('D. MMM');
+			case '1m':
+				return dayjs(parseInt(time)).format('D. MMM');
+			case '1y':
+				return dayjs(parseInt(time)).format('D. MMM YYYY');
+			case 'all':
+				return dayjs(parseInt(time)).format('MMM YYYY');
 
-const Chart = ({ data }) => {
+			default:
+				return dayjs(parseInt(time)).format('D. MMM');
+		}
+	}
+
+	const formatDateTooltip = time => {
+		switch (timeline) {
+			case '1d':
+				return dayjs(parseInt(time)).format('HH:mm');
+			case '5d':
+				return dayjs(parseInt(time)).format('D. MMM');
+			case '1m':
+				return dayjs(parseInt(time)).format('D. MMM');
+			case '1y':
+				return dayjs(parseInt(time)).format('D. MMM YYYY');
+			case 'all':
+				return dayjs(parseInt(time)).format('MMM YYYY');
+
+			default:
+				return dayjs(parseInt(time)).format('D. MMM');
+		}
+	}
+
 	return (
 		<ResponsiveContainer width={'100%'} height={300}>
 			<LineChart data={data}>
@@ -18,9 +47,11 @@ const Chart = ({ data }) => {
 					dataKey='time'
 					tickFormatter={formatDateAxis}
 					tickMargin={10}
-					interval={300}
+					interval={data.length / 5}
 				/>
-				<YAxis />
+				<YAxis
+					domain={['auto', 'auto']}
+				/>
 				<CartesianGrid strokeDasharray='3 3' />
 				<Tooltip labelFormatter={formatDateTooltip} />
 				<Line
