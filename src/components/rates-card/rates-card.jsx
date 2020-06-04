@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { gql } from 'apollo-boost';
 import { useQuery } from 'react-apollo';
 import { Link } from 'react-router-dom';
+import CryptoIcon from '../crypto-icon/crypto-icon';
 
 const Container = styled.div`
 	padding: 30px 20px;
@@ -32,11 +33,6 @@ const Row = styled(Link)`
 	&:hover {
 		background-color: #E3E8F3;
 	}
-`
-
-const Icon = styled.div`
-	display: flex;
-	align-items: center;
 `
 
 const Symbol = styled.div`
@@ -79,16 +75,6 @@ const CRYPTO_QUERY = gql`
 	}
 `
 
-const cryptoSVGs = require.context('../../assets/icons/cryptocurrencies', true);
-
-const getCryptoSvg = symbol => {
-	try {
-		return cryptoSVGs(`./${symbol.toLowerCase()}.svg`);
-	} catch (error) {
-		return '';
-	}
-}
-
 const RatesCard = () => {
 
 	const { data } = useQuery(CRYPTO_QUERY);
@@ -99,19 +85,20 @@ const RatesCard = () => {
 			<CryptocurrenciesList>
 				{
 					data && data.cryptocurrencies &&
-					data.cryptocurrencies.map(cryptocurrency => (
-						<Row key={cryptocurrency.id} to={`/${cryptocurrency.id}`}>
-							<Icon>
-								<img src={getCryptoSvg(cryptocurrency.symbol)} alt={cryptocurrency.symbol} />
-							</Icon>
-							<Symbol>{cryptocurrency.symbol}</Symbol>
-							<Name>{cryptocurrency.name}</Name>
-							<Price>$ {cryptocurrency.priceUsd}</Price>
-							<Change isNegative={cryptocurrency.changePercent24Hr < 0}>
-								{cryptocurrency.changePercent24Hr}%
+					data.cryptocurrencies.map(cryptocurrency => {
+						const { id, symbol, name, priceUsd, changePercent24Hr } = cryptocurrency;
+						return (
+							<Row key={id} to={`/${id}`}>
+								<CryptoIcon name={symbol} />
+								<Symbol>{symbol}</Symbol>
+								<Name>{name}</Name>
+								<Price>$ {priceUsd}</Price>
+								<Change isNegative={changePercent24Hr < 0}>
+									{changePercent24Hr}%
 							</Change>
-						</Row>
-					))
+							</Row>
+						)
+					})
 				}
 			</CryptocurrenciesList>
 		</Container>

@@ -16,11 +16,9 @@ const App = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<GlobalStyle />
-			<div>
-				<Switch>
-					<Route exact path='/:cryptocurrencyId?' component={HomePage} />
-				</Switch>
-			</div>
+			<Switch>
+				<Route exact path='/:cryptocurrencyId?' component={HomePage} />
+			</Switch>
 		</ThemeProvider>
 	);
 }
