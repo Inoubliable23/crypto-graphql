@@ -62,7 +62,7 @@ const Change = styled.div`
 	color: ${props => props.isNegative ? '#E15C5C' : '#86CE97'};
 `
 
-const CRYPTO_QUERY = gql`
+export const CRYPTO_QUERY = gql`
 	{
 		cryptocurrencies {
 			id
@@ -77,30 +77,34 @@ const CRYPTO_QUERY = gql`
 
 const RatesCard = () => {
 
-	const { data } = useQuery(CRYPTO_QUERY);
+	const { loading, data } = useQuery(CRYPTO_QUERY);
 
 	return (
 		<Container>
 			<Title>Rates</Title>
-			<CryptocurrenciesList>
-				{
-					data && data.cryptocurrencies &&
-					data.cryptocurrencies.map(cryptocurrency => {
-						const { id, symbol, name, priceUsd, changePercent24Hr } = cryptocurrency;
-						return (
-							<Row key={id} to={`/${id}`}>
-								<CryptoIcon name={symbol} />
-								<Symbol>{symbol}</Symbol>
-								<Name>{name}</Name>
-								<Price>$ {priceUsd}</Price>
-								<Change isNegative={changePercent24Hr < 0}>
-									{changePercent24Hr}%
-							</Change>
-							</Row>
-						)
-					})
-				}
-			</CryptocurrenciesList>
+			{loading ?
+				<p>Loading...</p>
+				:
+				<CryptocurrenciesList>
+					{
+						data && data.cryptocurrencies &&
+						data.cryptocurrencies.map(cryptocurrency => {
+							const { id, symbol, name, priceUsd, changePercent24Hr } = cryptocurrency;
+							return (
+								<Row key={id} to={`/${id}`}>
+									<CryptoIcon name={symbol} />
+									<Symbol>{symbol}</Symbol>
+									<Name>{name}</Name>
+									<Price>$ {priceUsd}</Price>
+									<Change isNegative={changePercent24Hr < 0}>
+										{changePercent24Hr}%
+									</Change>
+								</Row>
+							)
+						})
+					}
+				</CryptocurrenciesList>
+			}
 		</Container>
 	);
 }
