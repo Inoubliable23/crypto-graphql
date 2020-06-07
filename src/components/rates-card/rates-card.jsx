@@ -62,7 +62,7 @@ const Change = styled.div`
 	color: ${props => props.isNegative ? '#E15C5C' : '#86CE97'};
 `
 
-export const CRYPTO_QUERY = gql`
+const CRYPTO_QUERY = gql`
 	{
 		cryptocurrencies {
 			id

@@ -2,47 +2,40 @@ import React from 'react';
 import { Router } from 'react-router-dom';
 import { wait, render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { MockedProvider } from '@apollo/react-testing';
 import { createMemoryHistory } from 'history';
-import RatesCard, { CRYPTO_QUERY } from '../components/rates-card/rates-card';
-
-const mocks = [
-	{
-		request: {
-			query: CRYPTO_QUERY,
-		},
-		result: {
-			data: {
-				cryptocurrencies: [
-					{
-						id: 1,
-						symbol: 'TC',
-						name: 'Test Coin',
-						rank: 6,
-						priceUsd: 23.12,
-						changePercent24Hr: 0.8
-					},
-					{
-						id: 2,
-						symbol: 'TC2',
-						name: 'Test Coin 2',
-						rank: 18,
-						priceUsd: 1.02,
-						changePercent24Hr: -2.16
-					}
-				],
-			},
-		},
-	},
-];
+import RatesCard from '../components/rates-card/rates-card';
+import ApolloMockedProvider from '../apolloClient/ApolloMockedProvider';
 
 it('renders list of cryptocurrencies', async () => {
+	const resolvers = {
+		Query: {
+			cryptocurrencies: () => [
+				{
+					id: 1,
+					rank: 6,
+					symbol: 'TC',
+					name: 'Test Coin',
+					priceUsd: 23.12,
+					changePercent24Hr: 0.8
+				},
+				{
+					id: 2,
+					rank: 18,
+					symbol: 'TC2',
+					name: 'Test Coin 2',
+					priceUsd: 1.02,
+					changePercent24Hr: -2.16
+				}
+			]
+		}
+	};
+
 	const history = createMemoryHistory();
 	const { getByText, queryByText, getAllByRole } = render(
 		<Router history={history}>
-			<MockedProvider mocks={mocks} addTypename={false}>
+			<ApolloMockedProvider resolvers={resolvers}>
 				<RatesCard />
-			</MockedProvider>
+			</ApolloMockedProvider>
 		</Router>
 	);
 
