@@ -3,28 +3,44 @@ import { Router } from 'react-router-dom';
 import { wait, render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { createMemoryHistory } from 'history';
+
 import RatesCard from '../components/rates-card/rates-card';
 import ApolloMockedProvider from '../apolloClient/ApolloMockedProvider';
 
 it('renders list of cryptocurrencies', async () => {
+
+	const firstCoinId = '1';
+	const firstCoinName = 'Test Coin';
+	const firstCoinSymbol = 'TC';
+	const firstCoinRank = 1;
+	const firstCoinPrice = 23.12;
+	const firstCoinChange = 0.8;
+
+	const secondCoinId = '2';
+	const secondCoinName = 'Test Coin 2';
+	const secondCoinSymbol = 'TC2';
+	const secondCoinRank = 2;
+	const secondCoinPrice = 1.02;
+	const secondCoinChange = -2.16;
+
 	const resolvers = {
 		Query: {
 			cryptocurrencies: () => [
 				{
 					id: 1,
-					rank: 6,
-					symbol: 'TC',
-					name: 'Test Coin',
-					priceUsd: 23.12,
-					changePercent24Hr: 0.8
+					name: firstCoinName,
+					symbol: firstCoinSymbol,
+					rank: firstCoinRank,
+					priceUsd: firstCoinPrice,
+					changePercent24Hr: firstCoinChange
 				},
 				{
 					id: 2,
-					rank: 18,
-					symbol: 'TC2',
-					name: 'Test Coin 2',
-					priceUsd: 1.02,
-					changePercent24Hr: -2.16
+					name: secondCoinName,
+					symbol: secondCoinSymbol,
+					rank: secondCoinRank,
+					priceUsd: secondCoinPrice,
+					changePercent24Hr: secondCoinChange
 				}
 			]
 		}
@@ -45,18 +61,18 @@ it('renders list of cryptocurrencies', async () => {
 
 	expect(queryByText(/Loading/)).toBeNull();
 
-	getByText('TC');
-	getByText('Test Coin');
-	getByText(/23.12/i);
+	getByText(firstCoinName);
+	getByText(firstCoinSymbol);
+	getByText(new RegExp(firstCoinPrice));
 
-	getByText('TC2');
-	getByText('Test Coin 2');
-	getByText(/1.02/i);
+	getByText(secondCoinName);
+	getByText(secondCoinSymbol);
+	getByText(new RegExp(secondCoinPrice));
 
-	expect(getAllByRole('link')[0]).toHaveAttribute('href', '/1');
-	expect(getAllByRole('link')[1]).toHaveAttribute('href', '/2');
+	expect(getAllByRole('link')[0]).toHaveAttribute('href', `/${firstCoinId}`);
+	expect(getAllByRole('link')[1]).toHaveAttribute('href', `/${secondCoinId}`);
 
-	const style1 = window.getComputedStyle(getByText(/0.8/i)).color;
-	const style2 = window.getComputedStyle(getByText(/-2.16/i)).color;
+	const style1 = window.getComputedStyle(getByText(new RegExp(firstCoinChange))).color;
+	const style2 = window.getComputedStyle(getByText(new RegExp(secondCoinChange))).color;
 	expect(style1).not.toEqual(style2);
 });
