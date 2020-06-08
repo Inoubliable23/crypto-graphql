@@ -9,7 +9,11 @@ const theme = {
 	bgCard: '#fff',
 	textPrimary: '#111',
 	textSecondary: '#B0B2C1',
-	textHighlighted: '#D96E3C'
+	textHighlighted: '#D96E3C',
+	btnPrimary: '#84CD95',
+	btnPrimaryText: '#fff',
+	btnSecondary: '#fff',
+	btnSecondaryText: '#111',
 }
 
 const App = () => {

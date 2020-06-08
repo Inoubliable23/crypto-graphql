@@ -4,12 +4,7 @@ import { gql } from 'apollo-boost';
 import { useQuery } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import CryptoIcon from '../crypto-icon/crypto-icon';
-
-const Container = styled.div`
-	padding: 30px 20px;
-	background-color: #fff;
-	border-radius: 10px;
-`
+import Card from '../card/card';
 
 const Title = styled.div`
 	font-size: 20px;
@@ -80,7 +75,7 @@ const RatesCard = () => {
 	const { loading, data } = useQuery(CRYPTO_QUERY);
 
 	return (
-		<Container>
+		<Card>
 			<Title>Rates</Title>
 			{loading ?
 				<p>Loading...</p>
@@ -105,7 +100,7 @@ const RatesCard = () => {
 					}
 				</CryptocurrenciesList>
 			}
-		</Container>
+		</Card>
 	);
 }
 

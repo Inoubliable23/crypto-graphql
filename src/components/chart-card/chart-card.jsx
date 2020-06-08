@@ -6,12 +6,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import queryString from 'query-string';
 import Chart from '../chart/chart';
 import ChartTimelinesMenu from '../chart-timelines-menu/chart-timelines-menu';
-
-const Container = styled.div`
-	padding: 30px 20px;
-	background-color: #fff;
-	border-radius: 10px;
-`
+import Card from '../card/card';
 
 const HeaderContainer = styled.div`
 	display: flex;
@@ -54,7 +49,7 @@ const ChartCard = () => {
 	});
 
 	return (
-		<Container>
+		<Card>
 			<HeaderContainer>
 				<Title>{cryptocurrencyIdParam}</Title>
 				<ChartTimelinesMenu />
@@ -65,7 +60,7 @@ const ChartCard = () => {
 					<Chart data={data.history} timeline={timeline} />
 				}
 			</ChartContainer>
-		</Container>
+		</Card>
 	);
 }
 
