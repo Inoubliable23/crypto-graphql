@@ -42,6 +42,8 @@ it('lets user buy cryptocurrency', async () => {
 	const buyButton = getByText('Buy');
 	const buyInput = buyButton.parentElement.getElementsByTagName('input')[0];
 
+	expect(buyButton).toBeDisabled();
+
 	await userEvent.type(buyInput, '12');
 
 	expect(buyButton).toBeEnabled();
