@@ -4,6 +4,22 @@ export const schemaString = `
 		history(id: ID!, timeline: String!): [History]
 	}
 
+	type Mutation {
+		signup(name: String!, password: String!): AuthPayload
+		login(name: String!, password: String!): AuthPayload
+	}
+
+	type User {
+		id: ID!
+		name: String!
+		password: String!
+	}
+
+	type AuthPayload {
+		token: String
+		error: String
+	}
+
 	type Cryptocurrency {
 		id: ID!
 		rank: Int!

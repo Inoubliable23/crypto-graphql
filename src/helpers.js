@@ -1,4 +1,17 @@
-const dayjs = require('dayjs');
+import dayjs from 'dayjs';
+import { TOKEN_NAME } from './constants';
+
+export const saveToken = token => {
+	localStorage.setItem(TOKEN_NAME, token);
+}
+
+export const getToken = () => {
+	return localStorage.getItem(TOKEN_NAME);
+}
+
+export const removeToken = () => {
+	return localStorage.removeItem(TOKEN_NAME);
+}
 
 const mapTimelineToAxisDate = {
 	'1d': 'HH:mm',

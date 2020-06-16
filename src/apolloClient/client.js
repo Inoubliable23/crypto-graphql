@@ -1,11 +1,13 @@
 import { ApolloClient } from 'apollo-boost';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { getToken } from '../helpers';
+import { SERVER_URL } from '../constants';
 
-const token = localStorage.getItem('crypto-graphql-token');
+const token = getToken();
 
 const httpLink = createHttpLink({
-	uri: 'http://localhost:4000',
+	uri: SERVER_URL,
 	headers: {
 		Authorization: token ? `Bearer ${token}` : ''
 	}
